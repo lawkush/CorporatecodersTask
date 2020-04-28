@@ -1,4 +1,3 @@
-
 <?php require('header.php'); ?>
 
 		<div class="row">
@@ -39,87 +38,55 @@
 				</div>
 			</div>
 
+		<div class="row">			
+			<div class="col-md-12">
+				
+				<div class="search">
+		            <input id="myInput" class="form-control" type="text" placeholder="Search..">
+		        </div>
+			</div>		
+		</div>
 
-		<form class="form-inline" action="<?php echo base_url() . 'index.php/student'; ?>" method="post">
-	        <select class="form-control" name="field">
-	            <option selected="selected" disabled="disabled" value="">Filter By</option>
-	            <option value="first_name">First Name</option>
-	            <option value="mobile">Mobile Number</option>
-	        </select>
-	        <input class="form-control" type="text" name="search" value="" placeholder="Search...">
-	        <input class="btn btn-default" type="submit" name="filter" value="Go">
-    	</form>
+<div class="container">
+<div class="table-responsive">
+    <table class="table table-stripped">
+        <thead class="thead-dark col-md-12" >
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Student Name</th>
+                <th scope="col">Stream</th>
+                <th scope="col">Mobile</th>
+               
+            </tr>
+        </thead>
+        <tbody id="myTable">
+        <?php
+            $cnt=1;
+            foreach($students as $data)
+            {
+        ?>
+            <tr>
+                <td><?php echo $data['sid']; ?></td>
+                 <td><?php echo $data['sname'];?></td>
+                 <td><?php echo $data['stream']; ?></td>
+                <td><?php echo $data['mob'];?></td>
+   
+               <td>
+		        <a href="<?php echo base_url().'index.php/student/edit/'.$data['sid'].'/e' ?>"? class="btn btn-primary">Edit</a>
+		       </td>
+		        <td>
+		        <a href="<?php echo base_url().'index.php/student/delete/'.$data['sid']; ?>"? class="btn btn-primary">Delete</a>
+		       </td>
+		        <td>
+		        <a href="<?php echo base_url().'index.php/student/getpdf/'.$data['sid'].'/e' ?>"? class="btn btn-primary">View In PDF</a>
+		       </td>
 
+    		</tr>
+        
+        <?php $cnt++; }?>
+        </tbody>
+    </table>
+</div>
+</div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-			<div class="row">
-
-				<div class="col-md-12">
-					<table class="table table-striped">
-						<tr>
-
-							<th>Student id</th>
-							<th>Name</th>
-							<th>Stream</th>
-							<th>Mobile number</th>
-							<th width="70"> Edit</th>
-							<th width="70">Delete</th>
-
-						</tr>
-
-						<?php if(!empty($students)){
-
-							foreach($students as $student) {?>
-							<tr>
-								<td><?php echo $student['sid']; ?></td>
-
-								<td><?php echo $student['sname']; ?></td>
-
-								<td><?php echo $student['stream']; ?></td>
-
-								<td><?php echo $student['mob']; ?></td>
-
-								<td>
-
-									<a href="<?php echo base_url().'index.php/student/edit/'.$student['sid'].'/e' ?>" class="btn btn-primary">Edit</a>
-								</td>
-
-								<td>
-									<a href="<?php echo base_url().'index.php/student/delete/'.$student['sid']; ?>" class="btn btn-danger">Delete</a>
-								</td>
-							</tr>
-
-						<?php } } 
-
-						else { ?>
-
-							<tr>
-								<td colspan="5">Record not found</td>
-
-							</tr>
-
-						<?php } ?>
-
-					</table>
-
-				</div>
-			</div>
 <?php require('footer.php'); ?>

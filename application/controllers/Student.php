@@ -1,13 +1,17 @@
 <?php
 		class Student extends CI_controller
 		{
+		
+		
 			function index()
 			{
-				$this->load->model('Student_model');
-				$students=$this->Student_model->all();
-				$data=array();
-				$data['students']=$students;
-				$this->load->view('list',$data);
+
+
+				  $this->load->model('Student_model');
+				  $students=$this->Student_model->all();
+				  $data=array();
+				  $data['students']=$students;
+				  $this->load->view('list',$data);
 			}
 
 			public  function create()
@@ -77,6 +81,30 @@
 				redirect(base_url().'index.php/student/index');
 
 			}
+
+			function getpdf($sid)
+    		{
+		        $this->load->model('Student_model');
+		        $result=$this->Student_model->getStudent($sid);
+		        $html=$this->load->view('pdfReport',['result'=>$result],true);
+		        $mpdf = new \Mpdf\Mpdf();
+		        $mpdf->WriteHTML($html);
+		        $mpdf->Output();
+    		}
+			/*
+			function details()
+			{
+
+				if($this->uri->segment(3))
+				{
+
+					$sid=$this->uri->segment(3);
+					$data['student_details']=$this->Student_model->fetch_single_details($sid);
+					$this->load->view('list',$data);
+				}
+			}*/
+
+
 
 }
 
